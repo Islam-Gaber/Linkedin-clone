@@ -1,0 +1,1960 @@
+{
+	"info": {
+		"_postman_id": "3d1c5f37-097a-4f09-b673-eaaa640b5367",
+		"name": "Linkedin-clone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User-CRUD",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|9VaZF0sSQJghdMxv7bBUBb84cB1LkGEavXs16Hjh",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users?name=Ahmad&email=tefst42@yahoo.com&password=password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Ahmad"
+								},
+								{
+									"key": "email",
+									"value": "tefst42@yahoo.com"
+								},
+								{
+									"key": "password",
+									"value": "password"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|9VaZF0sSQJghdMxv7bBUBb84cB1LkGEavXs16Hjh",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/087ae0ed-85dd-422e-975f-39c634a6918a?name=tefdfst&email=test@gmail.com&password=password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"087ae0ed-85dd-422e-975f-39c634a6918a"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "tefdfst"
+								},
+								{
+									"key": "email",
+									"value": "test@gmail.com"
+								},
+								{
+									"key": "password",
+									"value": "password"
+								},
+								{
+									"key": "profile_img",
+									"value": "test.png",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|QihwIZwfHnIr8MIyuWyZBZszVA6HCYvdbV71i3zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users/8981af68-87a6-4f07-a20a-7a8c9d050fe7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"8981af68-87a6-4f07-a20a-7a8c9d050fe7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "10|65lCluiCSJfowRTrJK3VbxfjOh8FWrTws2R0hZ2W",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users/search?query=a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"search"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|QihwIZwfHnIr8MIyuWyZBZszVA6HCYvdbV71i3zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users?page=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|hzPe1LskeQiHeC0CBl8vaMO6o587W0o62Y4z0jFy",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users/b6b7778b-3b91-4d54-bf74-cc1598e8db58",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"b6b7778b-3b91-4d54-bf74-cc1598e8db58"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSoftDeletedUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|h7dsL8azkD6U0UyEF2HYS8jFW9gOJTH9Gg3eTglX",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users/trashed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"trashed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsersByActiveStatus",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|h7dsL8azkD6U0UyEF2HYS8jFW9gOJTH9Gg3eTglX",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/users/filter?active=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "active",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile-CRUD",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/78bd9133-6337-40f2-9491-80f6bf7d8454",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"78bd9133-6337-40f2-9491-80f6bf7d8454"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|1u7cBZQ0wZMXlkF6zvr6599RqenBjHBQIAR5Wmjz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles?headline=test_test 2&summary=test_test 2&country=test_test 2&state=test_test 2&city=test_test 2&address=test_test 2&phone_number=0101111111&website_url=https://www.example.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles"
+							],
+							"query": [
+								{
+									"key": "headline",
+									"value": "test_test 2"
+								},
+								{
+									"key": "summary",
+									"value": "test_test 2"
+								},
+								{
+									"key": "country",
+									"value": "test_test 2"
+								},
+								{
+									"key": "state",
+									"value": "test_test 2"
+								},
+								{
+									"key": "city",
+									"value": "test_test 2"
+								},
+								{
+									"key": "address",
+									"value": "test_test 2"
+								},
+								{
+									"key": "phone_number",
+									"value": "0101111111"
+								},
+								{
+									"key": "website_url",
+									"value": "https://www.example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|QihwIZwfHnIr8MIyuWyZBZszVA6HCYvdbV71i3zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/456d0bcc-ce07-4743-8ff3-4438f3298944?headline=test_updated&summary=test_updated&country=test_updated&state=test_updated&city=test_updated&address=test_updated&phone_number=0102222222&website_url=https://www.example.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"456d0bcc-ce07-4743-8ff3-4438f3298944"
+							],
+							"query": [
+								{
+									"key": "headline",
+									"value": "test_updated"
+								},
+								{
+									"key": "summary",
+									"value": "test_updated"
+								},
+								{
+									"key": "country",
+									"value": "test_updated"
+								},
+								{
+									"key": "state",
+									"value": "test_updated"
+								},
+								{
+									"key": "city",
+									"value": "test_updated"
+								},
+								{
+									"key": "address",
+									"value": "test_updated"
+								},
+								{
+									"key": "phone_number",
+									"value": "0102222222"
+								},
+								{
+									"key": "website_url",
+									"value": "https://www.example.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "8|B6cercwyHF8WvDtl2mF4ySCr00rEGV4oG9GSEZ2E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Experience-CRUD",
+			"item": [
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|QihwIZwfHnIr8MIyuWyZBZszVA6HCYvdbV71i3zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/{uuid}/experiences/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"{uuid}",
+								"experiences",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/78bd9133-6337-40f2-9491-80f6bf7d8454/experiences?title=Software Developer&company=Acme Corporation&location=New York, NY&start_date=2020-01-01&end_date=2022-01-01&description=Developed web applications using PHP, Laravel, and React.",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"78bd9133-6337-40f2-9491-80f6bf7d8454",
+								"experiences"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Software Developer"
+								},
+								{
+									"key": "company",
+									"value": "Acme Corporation"
+								},
+								{
+									"key": "location",
+									"value": "New York, NY"
+								},
+								{
+									"key": "start_date",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2022-01-01"
+								},
+								{
+									"key": "description",
+									"value": "Developed web applications using PHP, Laravel, and React."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|CCYFTBjoymHICeastsHH5MAWjMoKzeG68UQR7K2E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/cb37914d-96e3-49ba-970d-586cd9750cf3/experiences/1?title=Software Developer&company=Acme Corporation&location=New York, NY&start_date=2020-01-01&end_date=2022-01-01&description=Developed web applications using PHP, Laravel, and React.",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"cb37914d-96e3-49ba-970d-586cd9750cf3",
+								"experiences",
+								"1"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Software Developer"
+								},
+								{
+									"key": "company",
+									"value": "Acme Corporation"
+								},
+								{
+									"key": "location",
+									"value": "New York, NY"
+								},
+								{
+									"key": "start_date",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2022-01-01"
+								},
+								{
+									"key": "description",
+									"value": "Developed web applications using PHP, Laravel, and React."
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Educations-CRUD",
+			"item": [
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|QihwIZwfHnIr8MIyuWyZBZszVA6HCYvdbV71i3zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/{uuid}/educations/{id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"{uuid}",
+								"educations",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/78bd9133-6337-40f2-9491-80f6bf7d8454/educations?school=University of California, Los Angeles&degree=Bachelor of Science&field_of_study=Computer Science&start_date=2015-09-01&end_date=2019-06-01&description=Graduated with honors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"78bd9133-6337-40f2-9491-80f6bf7d8454",
+								"educations"
+							],
+							"query": [
+								{
+									"key": "school",
+									"value": "University of California, Los Angeles"
+								},
+								{
+									"key": "degree",
+									"value": "Bachelor of Science"
+								},
+								{
+									"key": "field_of_study",
+									"value": "Computer Science"
+								},
+								{
+									"key": "start_date",
+									"value": "2015-09-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2019-06-01"
+								},
+								{
+									"key": "description",
+									"value": "Graduated with honors"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|CCYFTBjoymHICeastsHH5MAWjMoKzeG68UQR7K2E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/cb37914d-96e3-49ba-970d-586cd9750cf3/educations/2?school=University of California, Los Angeles&degree=Bachelor of Science&field_of_study=Computer Science&start_date=2015-09-01&end_date=2019-06-01&description=Graduated with honors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"cb37914d-96e3-49ba-970d-586cd9750cf3",
+								"educations",
+								"2"
+							],
+							"query": [
+								{
+									"key": "school",
+									"value": "University of California, Los Angeles"
+								},
+								{
+									"key": "degree",
+									"value": "Bachelor of Science"
+								},
+								{
+									"key": "field_of_study",
+									"value": "Computer Science"
+								},
+								{
+									"key": "start_date",
+									"value": "2015-09-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2019-06-01"
+								},
+								{
+									"key": "description",
+									"value": "Graduated with honors"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Skills-CRUD",
+			"item": [
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|QihwIZwfHnIr8MIyuWyZBZszVA6HCYvdbV71i3zg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/{uuid}/skills/{id}?name=JavaScript",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"{uuid}",
+								"skills",
+								"{id}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "JavaScript"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/78bd9133-6337-40f2-9491-80f6bf7d8454/skills?name=JavaScript",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"78bd9133-6337-40f2-9491-80f6bf7d8454",
+								"skills"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "JavaScript"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|CCYFTBjoymHICeastsHH5MAWjMoKzeG68UQR7K2E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/profiles/cb37914d-96e3-49ba-970d-586cd9750cf3/skills/2?name=Laravel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"profiles",
+								"cb37914d-96e3-49ba-970d-586cd9750cf3",
+								"skills",
+								"2"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Laravel"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts-CRUD",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "8|B6cercwyHF8WvDtl2mF4ySCr00rEGV4oG9GSEZ2E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|1u7cBZQ0wZMXlkF6zvr6599RqenBjHBQIAR5Wmjz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts?content=testtttttttttttttttttttttttt125",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "testtttttttttttttttttttttttt125"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|t0ebBnru7hhEP18dYB42vU1geD8rdyvvVEa11QFs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1?content=test222222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "test222222"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|Ce2bXdOBf8eanTNCOO2M1vhZsZkSTpst4xidleB2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment-CRUD",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1/comments?content=My first comment..",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1",
+								"comments"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "My first comment.."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profile_img",
+									"type": "file",
+									"src": "/D:/images/Pictures/0c895d765decf34fe9d9e2b18ab8bb53.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1/comments/1?content=My first comment update..",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1",
+								"comments",
+								"1"
+							],
+							"query": [
+								{
+									"key": "content",
+									"value": "My first comment update.."
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|Ce2bXdOBf8eanTNCOO2M1vhZsZkSTpst4xidleB2",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts/{post_id}/comments/{comment_id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"{post_id}",
+								"comments",
+								"{comment_id}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like-CRUD",
+			"item": [
+				{
+					"name": "Like",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unlike",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|iAqdZ8dzeMhNN5r42iHRuFI2cPbNrHJEQ6tpejga",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/posts/1/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"posts",
+								"1",
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection-CRUD",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|OhrHVf0BGWUNaGfMbnyN7Lfx8PO4EMyD4UUsatbH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Friends",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|OhrHVf0BGWUNaGfMbnyN7Lfx8PO4EMyD4UUsatbH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections/friends",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections",
+								"friends"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "1|OhrHVf0BGWUNaGfMbnyN7Lfx8PO4EMyD4UUsatbH",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "acceptRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "3|6dKFhU9JSWo0Nte6etfjvDUVZItybYZcoAkmmZT0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections/2/accept",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections",
+								"2",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rejectRequest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|KCFluczV9ryl7rD1fx5ylNsGF1mkMQIhb4VAl6Gi",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections/1/reject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections",
+								"1",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "blockConnection",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "7|1u7cBZQ0wZMXlkF6zvr6599RqenBjHBQIAR5Wmjz",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections/3/block",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections",
+								"3",
+								"block"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "5|KCFluczV9ryl7rD1fx5ylNsGF1mkMQIhb4VAl6Gi",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/connections/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"connections",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/register?name=test2&email=test2@gmail.com&password=12345678",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "test2"
+						},
+						{
+							"key": "email",
+							"value": "test2@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "12345678"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/login?email=shanelle.keeling@example.net&password=password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "shanelle.keeling@example.net"
+						},
+						{
+							"key": "password",
+							"value": "password"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "8|0A3kF1ShQ3YQt8E4ilyN83m9SAwYgh9i9gJkrDB1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
