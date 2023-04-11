@@ -73,17 +73,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Post routes
     Route::get('/posts', [PostController::class, 'index']);
-    Route::get('/posts/{id}', [PostController::class, 'show']);
     Route::post('/posts', [PostController::class, 'store']);
-    Route::put('/posts/{id}', [PostController::class, 'update']);
-    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
+    Route::get('/posts/{post_uuid}', [PostController::class, 'show']);
+    Route::put('/posts/{post_uuid}', [PostController::class, 'update']);
+    Route::delete('/posts/{post_uuid}', [PostController::class, 'destroy']);
 
     // Post Like routes
-    Route::post('/posts/{id}/like', [PostLikeController::class, 'like']);
-    Route::delete('/posts/{id}/like', [PostLikeController::class, 'unlike']);
+    Route::post('/posts/{post_uuid}/like', [PostLikeController::class, 'like']);
+    Route::delete('/posts/{post_uuid}/unlike', [PostLikeController::class, 'unlike']);
 
     // Post Comment routes
-    Route::post('/posts/{id}/comments', [PostCommentController::class, 'store']);
-    Route::put('/posts/{post_id}/comments/{comment_id}', [PostCommentController::class, 'update']);
-    Route::delete('/posts/{post_id}/comments/{comment_id}', [PostCommentController::class, 'destroy']);
+    Route::post('/posts/{post_uuid}/comments', [PostCommentController::class, 'store']);
+    Route::put('/posts/{post_uuid}/comments/{comment_uuid}', [PostCommentController::class, 'update']);
+    Route::delete('/posts/{post_uuid}/comments/{comment_uuid}', [PostCommentController::class, 'destroy']);
 });

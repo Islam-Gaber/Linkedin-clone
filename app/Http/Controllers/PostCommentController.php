@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 
 class PostCommentController extends Controller
 {
-    public function store(Request $request, $id)
+    use apiResponseTrait;
+    public function store(Request $request, $post_uuid)
     {
         $request->validate([
             'content' => 'required',
         ]);
 
-        $post = Post::findOrFail($id);
+        $post = Post::where('uuid', $post_uuid)->first();
 
         $comment = $post->comments()->create([
             'user_id' => $request->user()->id,
@@ -23,18 +24,16 @@ class PostCommentController extends Controller
 
         $comment->load('user');
 
-        return response()->json([
-            'comment' => $comment,
-        ]);
+        return $this->apiResponse('comment created', [], ($comment), [], 201);
     }
 
-    public function update(Request $request, $postId, $commentId)
+    public function update(Request $request, $comment_uuid)
     {
         $request->validate([
             'content' => 'required',
         ]);
 
-        $comment = PostComment::findOrFail($commentId);
+        $comment = PostComment::where('uuid', $comment_uuid)->first();
 
         if ($comment->user_id != $request->user()->id) {
             return response(null, 403);
@@ -44,12 +43,12 @@ class PostCommentController extends Controller
             'content' => $request->input('content'),
         ]);
 
-        return response(null, 204);
+        return $this->apiResponse('Comment updated', [], ($comment), [], 201);
     }
 
-    public function destroy(Request $request, $postId, $commentId)
+    public function destroy(Request $request, $comment_uuid)
     {
-        $comment = PostComment::findOrFail($commentId);
+        $comment = PostComment::where('uuid', $comment_uuid)->first();
 
         if ($comment->user_id != $request->user()->id) {
             return response(null, 403);
@@ -57,6 +56,6 @@ class PostCommentController extends Controller
 
         $comment->delete();
 
-        return response(null, 204);
+        return $this->apiResponse('Comment deleted successfuly.', [], [], [], 201);
     }
 }

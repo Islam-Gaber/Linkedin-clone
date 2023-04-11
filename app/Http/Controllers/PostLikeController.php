@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class PostLikeController extends Controller
 {
-    public function like(Request $request, $id)
+    public function like(Request $request, $post_uuid)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::where('uuid', $post_uuid)->first();
 
         if ($post->likes()->where('user_id', $request->user()->id)->exists()) {
             return response(null, 409);
@@ -22,9 +22,9 @@ class PostLikeController extends Controller
         return response(null, 204);
     }
 
-    public function unlike(Request $request, $id)
+    public function unlike(Request $request, $post_uuid)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::where('uuid', $post_uuid)->first();
 
         if (!$post->likes()->where('user_id', $request->user()->id)->exists()) {
             return response(null, 409);

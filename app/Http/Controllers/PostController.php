@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
+    use apiResponseTrait;
     /**
      * Get a list of all posts.
      *
@@ -20,14 +21,12 @@ class PostController extends Controller
             ->withCount('comments')
             ->latest()
             ->get();
-            
+
         $posts = $posts->filter(function ($post) {
             return Gate::allows('view', $post);
         });
 
-        return response()->json([
-            'posts' => $posts,
-        ]);
+        return $this->apiResponse('posts', [], ($posts), [], 201);
     }
 
     /**
@@ -36,16 +35,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($post_uuid)
     {
-        $post = Post::with(['user', 'likes', 'comments'])
+        $post = Post::where('uuid', $post_uuid)->with(['user', 'likes', 'comments'])
             ->withCount('likes')
             ->withCount('comments')
-            ->findOrFail($id);
+            ->first();
 
-        return response()->json([
-            'post' => $post,
-        ]);
+        return $this->apiResponse('post', [], ($post), [], 201);
     }
 
     /**
@@ -65,9 +62,7 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->save();
 
-        return response()->json([
-            'post' => $post,
-        ], 201);
+        return $this->apiResponse('Post created', [], ($post), [], 201);
     }
 
     /**
@@ -77,13 +72,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $post_uuid)
     {
         $request->validate([
             'content' => 'required|string',
         ]);
 
-        $post = Post::findOrFail($id);
+        $post = Post::where('uuid', $post_uuid)->first();
         if (Gate::denies('update-post', $post)) {
             return response()->json([
                 'message' => 'You are not authorized to update this post.'
@@ -93,9 +88,7 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->save();
 
-        return response()->json([
-            'post' => $post,
-        ]);
+        return $this->apiResponse('Post updated', [], ($post), [], 201);
     }
 
     /**
@@ -104,9 +97,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($post_uuid)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::where('uuid', $post_uuid)->first();
         if (Gate::denies('delete-post', $post)) {
             return response()->json([
                 'message' => 'You are not authorized to delete this post.'
@@ -115,6 +108,6 @@ class PostController extends Controller
 
         $post->delete();
 
-        return response()->json([], 204);
+        return $this->apiResponse('Post deleted successfuly.', [], [], [], 201);
     }
 }
