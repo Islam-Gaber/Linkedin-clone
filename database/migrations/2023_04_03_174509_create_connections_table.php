@@ -15,8 +15,9 @@ class CreateConnectionsTable extends Migration
     {
         Schema::create('connections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('connection_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('uuid')->unique();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Sinder user
+            $table->foreignId('connection_id')->constrained('users')->onDelete('cascade'); // Recever user
             $table->enum('status', ['requested', 'accepted', 'rejected', 'blocked'])->default('requested');
             $table->softDeletes();
             $table->timestamps();

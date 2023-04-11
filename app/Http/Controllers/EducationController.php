@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class EducationController extends Controller
 {
+    use apiResponseTrait;
     public function store(EducationRequest $request, $profile_uuid)
     {
         $profile = Profile::where('uuid', $profile_uuid)->first();
@@ -21,9 +22,10 @@ class EducationController extends Controller
         $education->profile_id = $profile->id;
         $education->save();
 
-        return response()->json([
+        return $this->apiResponse('education created', [], ($education), [], 201);
+        /* return response()->json([
             'education' => $education,
-        ], 201);
+        ], 201); */
     }
 
     public function update(EducationRequest $request, $profile_uuid, $education_id)
@@ -42,9 +44,10 @@ class EducationController extends Controller
 
         $education->update($request->validated());
 
-        return response()->json([
+        return $this->apiResponse('education updated', [], ($education), [], 201);
+        /* return response()->json([
             'education' => $education,
-        ]);
+        ]); */
     }
 
     public function destroy($profile_uuid, $education_id)
@@ -63,8 +66,9 @@ class EducationController extends Controller
 
         $education->delete();
 
-        return response()->json([
+        return $this->apiResponse('Education deleted successfully.', [], [], [], 201);
+        /* return response()->json([
             'message' => 'Education deleted successfully.',
-        ]);
+        ]); */
     }
 }

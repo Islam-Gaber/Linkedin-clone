@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class ExperienceController extends Controller
 {
+    use apiResponseTrait;
     public function store(ExperienceRequest $request, $profile_uuid)
     {
         $profile = Profile::where('uuid', $profile_uuid)->first();
@@ -21,9 +22,10 @@ class ExperienceController extends Controller
         $experience->profile_id = $profile->id;
         $experience->save();
 
-        return response()->json([
+        return $this->apiResponse('experience created', [], ($experience), [], 201);
+        /* return response()->json([
             'experience' => $experience,
-        ], 201);
+        ], 201); */
     }
 
     public function update(ExperienceRequest $request, $profile_uuid, $experience_id)
@@ -42,9 +44,10 @@ class ExperienceController extends Controller
 
         $experience->update($request->validated());
 
-        return response()->json([
+        return $this->apiResponse('experience updated', [], ($experience), [], 201);
+        /* return response()->json([
             'experience' => $experience,
-        ]);
+        ]); */
     }
 
     public function destroy($profile_uuid, $experience_id)
@@ -63,8 +66,9 @@ class ExperienceController extends Controller
 
         $experience->delete();
 
-        return response()->json([
+        return $this->apiResponse('Experience deleted successfully.', [], [], [], 201);
+        /* return response()->json([
             'message' => 'Experience deleted successfully.',
-        ]);
+        ]); */
     }
 }

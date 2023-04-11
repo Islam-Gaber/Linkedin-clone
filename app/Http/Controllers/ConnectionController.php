@@ -10,20 +10,28 @@ use Illuminate\Validation\Rule;
 
 class ConnectionController extends Controller
 {
+    use apiResponseTrait;
     public function index()
     {
         // Retrieve all connections for the authenticated user
-        $connections = Auth::user()->connections;
+        $authUserId = auth()->user()->id;
 
-        return response()->json([
+        $connections = Connection::where(function ($query) use ($authUserId) {
+            $query->where('user_id', $authUserId)
+                ->orWhere('connection_id', $authUserId);
+        })
+            ->get();
+
+        return $this->apiResponse('connections', [], ($connections), [], 201);
+        /* return response()->json([
             'connections' => $connections,
-        ]);
+        ]); */
     }
 
-    public function sendRequest(Request $request, $id)
+    public function sendRequest(Request $request, $user_uuid)
     {
         // Validate that the recipient exists and is not already connected with the authenticated user
-        $recipient = User::findOrFail($id);
+        $recipient = User::where('uuid', $user_uuid)->first();
         $authenticatedUser = $request->user();
 
         // Prevent the user from sending a connection request to themselves
@@ -31,20 +39,50 @@ class ConnectionController extends Controller
             return response()->json(['error' => 'Cannot send connection request to yourself'], 400);
         }
 
+        // Check if a connection request has already been sent from the authenticated user to the recipient
+        if (Connection::where('user_id', $authenticatedUser->id)->where('connection_id', $recipient->id)->exists()) {
+            $connection = Connection::where('user_id', $authenticatedUser->id)->where('connection_id', $recipient->id)->first();
+
+            if ($connection->status === 'requested') {
+                return response()->json(['error' => 'Connection request already sent to this user'], 400);
+            } elseif ($connection->status === 'accepted') {
+                return response()->json(['error' => 'You are already friends!'], 400);
+            } elseif ($connection->status === 'rejected') {
+                $connection->update([
+                    'status' => Connection::STATUS_REQUESTED,
+                ]);
+                return $this->apiResponse('Send Request', [], ($connection), [], 201);
+            }
+        }
+
+        // Check if a connection request has already been sent from the recipient to the authenticated user
+        if (Connection::where('user_id', $recipient->id)->where('connection_id', $authenticatedUser->id)->exists()) {
+            $connection = Connection::where('user_id', $recipient->id)->where('connection_id', $authenticatedUser->id)->first();
+
+            if ($connection->status === 'requested') {
+                return response()->json(['error' => 'You have already received a connection request from this user'], 400);
+            } elseif ($connection->status === 'accepted') {
+                return response()->json(['error' => 'You are already friends!'], 400);
+            } elseif ($connection->status === 'rejected') {
+                $connection->update([
+                    'status' => Connection::STATUS_REQUESTED,
+                ]);
+                return $this->apiResponse('Send Request', [], ($connection), [], 201);
+            }
+        }
+
         $connection = Connection::create([
             'user_id' => $authenticatedUser->id,
             'connection_id' => $recipient->id,
         ]);
 
-        return response()->json([
-            'connection' => $connection,
-        ]);
+        return $this->apiResponse('Send Request', [], ($connection), [], 201);
     }
 
-    public function acceptRequest(Request $request, $id)
+    public function acceptRequest(Request $request, $connection_uuid)
     {
         // Validate that the connection exists and the authenticated user is the recipient
-        $connection = Connection::findOrFail($id);
+        $connection = Connection::where('uuid', $connection_uuid)->first();
         $recipient = $request->user();
 
         if ($connection->connection_id !== $recipient->id) {
@@ -57,15 +95,16 @@ class ConnectionController extends Controller
             'status' => Connection::STATUS_ACCEPTED,
         ]);
 
-        return response()->json([
+        return $this->apiResponse('Accepted Request', [], ($connection), [], 201);
+        /* return response()->json([
             'connection' => $connection,
-        ]);
+        ]); */
     }
 
-    public function rejectRequest(Request $request, $id)
+    public function rejectRequest(Request $request, $connection_uuid)
     {
         // Validate that the connection exists and the authenticated user is the recipient
-        $connection = Connection::findOrFail($id);
+        $connection = Connection::where('uuid', $connection_uuid)->first();
         $recipient = $request->user();
 
         if ($connection->connection_id !== $recipient->id) {
@@ -78,15 +117,16 @@ class ConnectionController extends Controller
             'status' => Connection::STATUS_REJECTED,
         ]);
 
-        return response()->json([
+        return $this->apiResponse('Rejected Request', [], ($connection), [], 201);
+        /* return response()->json([
             'connection' => $connection,
-        ]);
+        ]); */
     }
 
-    public function blockConnection(Request $request, $id)
+    public function blockConnection(Request $request, $connection_uuid)
     {
         // Validate that the connection exists and the authenticated user is the recipient
-        $connection = Connection::findOrFail($id);
+        $connection = Connection::where('uuid', $connection_uuid)->first();
         $recipient = $request->user();
 
         if ($connection->connection_id !== $recipient->id) {
@@ -99,12 +139,13 @@ class ConnectionController extends Controller
             'status' => Connection::STATUS_BLOCKED,
         ]);
 
-        return response()->json([
+        return $this->apiResponse('Blocked Request', [], ($connection), [], 201);
+        /* return response()->json([
             'connection' => $connection,
-        ]);
+        ]); */
     }
 
-    public function myFriends(Request $request)
+    public function myFriends()
     {
         $authUserId = auth()->user()->id;
 
@@ -115,18 +156,19 @@ class ConnectionController extends Controller
             ->where('status', 'accepted')
             ->get();
 
-        return response()->json([
+        return $this->apiResponse('My friends', [], ($friends), [], 201);
+        /* return response()->json([
             'friends' => $friends,
-        ]);
+        ]); */
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $connection_uuid)
     {
         // Validate that the connection exists and the authenticated user is part of the connection
-        $connection = Connection::findOrFail($id);
+        $connection = Connection::where('uuid', $connection_uuid)->first();
         $authenticatedUser = $request->user();
 
-        if ($connection->user_id !== $authenticatedUser->id && $connection->recipient_id !== $authenticatedUser->id) {
+        if ($connection->user_id !== $authenticatedUser->id && $connection->connection_id !== $authenticatedUser->id) {
             return response()->json([
                 'message' => 'Unauthorized',
             ], 401);
@@ -134,6 +176,7 @@ class ConnectionController extends Controller
 
         $connection->delete();
 
-        return response(null, 204);
+        return $this->apiResponse('Request deleted successfuly.', [], ($connection), [], 201);
+        /* return response(null, 204); */
     }
 }

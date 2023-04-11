@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class SkillController extends Controller
 {
+    use apiResponseTrait;
     public function store(SkillRequest $request, $profile_uuid)
     {
         $profile = Profile::where('uuid', $profile_uuid)->first();
@@ -26,13 +27,14 @@ class SkillController extends Controller
         $profileSkill->endorsement_count = 0;
         $profileSkill->save();
 
-        return response()->json([
+        return $this->apiResponse('skill created', ['profile_skill' => $profileSkill], ($skill), [], 201);
+        /* return response()->json([
             'skill' => $skill,
             'profile_skill' => $profileSkill,
-        ], 201);
+        ], 201); */
     }
 
-    public function update(SkillRequest $request, $profile_uuid, $id)
+    public function update(SkillRequest $request, $profile_uuid, $skill_id)
     {
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
@@ -40,7 +42,7 @@ class SkillController extends Controller
             return response()->json(['error' => 'Profile not found.'], 404);
         }
 
-        $skill = Skill::find($id);
+        $skill = Skill::find($skill_id);
 
         if (!$skill) {
             return response()->json(['error' => 'Skill not found.'], 404);
@@ -48,12 +50,13 @@ class SkillController extends Controller
 
         $skill->update($request->validated());
 
-        return response()->json([
+        return $this->apiResponse('skill updated', [], ($skill), [], 201);
+        /* return response()->json([
             'skill' => $skill,
-        ], 200);
+        ], 200); */
     }
 
-    public function destroy($profile_uuid, $id)
+    public function destroy($profile_uuid, $skill_id)
     {
         $profile = Profile::where('uuid', $profile_uuid)->first();
 
@@ -61,7 +64,7 @@ class SkillController extends Controller
             return response()->json(['error' => 'Profile not found.'], 404);
         }
 
-        $skill = Skill::find($id);
+        $skill = Skill::find($skill_id);
 
         if (!$skill) {
             return response()->json(['error' => 'Skill not found.'], 404);
@@ -69,6 +72,7 @@ class SkillController extends Controller
 
         $skill->delete();
 
-        return response()->json([], 204);
+        return $this->apiResponse('Skill deleted successfully.', [], [], [], 201);
+        /* return response()->json([], 204); */
     }
 }

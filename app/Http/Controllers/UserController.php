@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class UserController extends Controller
 {
-
+    use apiResponseTrait;
     /**--------------------------------------------------------------------------------------------------------|
      * getUserList: Retrieves a list of all users, regardless of whether they are soft-deleted or not.         |
      * createUser: Creates a new user and returns the user model.                                              |
@@ -45,7 +45,7 @@ class UserController extends Controller
             $data = Cache::get('users');
         } else { // Otherwise, retrieve the user data from the database and cache it
             $data = DB::table('users')
-                ->select('id', 'name', 'email', 'profile_img', 'is_online', 'created_at', 'deleted_at')
+                ->select('id', 'uuid', 'name', 'email', 'profile_img', 'is_online', 'created_at', 'deleted_at')
                 ->whereNull('deleted_at')
                 ->get();
             Cache::put('users', $data);
@@ -57,7 +57,6 @@ class UserController extends Controller
         // Return the list of users for the current page
         return $users;
     }
-
 
     // This function creates a new user and returns the user model
     private function createUser(Request $request)
@@ -71,11 +70,11 @@ class UserController extends Controller
     }
 
     // This function retrieves a user by their ID and returns the user model
-    private function getUserById($id)
+    private function getUserById($uuid)
     {
-        return User::where('uuid', $id)
+        return User::where('uuid', $uuid)
             ->whereNull('deleted_at')
-            ->firstOrFail(['id', 'name', 'email', 'profile_img', 'created_at', 'updated_at', 'deleted_at']);
+            ->firstOrFail(['id', 'uuid', 'name', 'email', 'profile_img', 'created_at', 'updated_at', 'deleted_at']);
     }
 
     // This function uploads a profile image for the given user
@@ -107,14 +106,14 @@ class UserController extends Controller
     {
         return User::where('name', 'LIKE', "%$query%")
             ->orWhere('email', 'LIKE', "%$query%")
-            ->get(['id', 'name', 'email', 'profile_img', 'created_at', 'updated_at', 'deleted_at', 'is_online']);
+            ->get(['id', 'uuid', 'name', 'email', 'profile_img', 'created_at', 'updated_at', 'deleted_at', 'is_online']);
     }
 
     // This function retrieves users based on their online status and returns a collection of users
     private function getUsersByStatus($isActive)
     {
         return User::where('is_online', $isActive)
-            ->get(['id', 'name', 'email', 'profile_img', 'created_at', 'updated_at', 'deleted_at', 'is_online']);
+            ->get(['id', 'uuid', 'name', 'email', 'profile_img', 'created_at', 'updated_at', 'deleted_at', 'is_online']);
     }
 
     /**
@@ -129,7 +128,8 @@ class UserController extends Controller
 
         $users = $this->getUserList($page, $perPage);
 
-        return response()->json($users);
+        return $this->apiResponse('records', [], ($users), [], 200);
+        /* return response()->json($users); */
     }
 
     /**
@@ -143,7 +143,8 @@ class UserController extends Controller
         $user = $this->createUser($request);
         Cache::forget('users');
 
-        return response()->json(['Hello ' . $user->name . ' in your home!'], 201);
+        return $this->apiResponse('Record created', [], ($user), [], 200);
+        /* return response()->json(['Hello ' . $user->name . ' in your home!'], 201); */
     }
 
     /**
@@ -152,15 +153,16 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show($uuid)
     {
-        $user = $this->getUserById($id);
+        $user = $this->getUserById($uuid);
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        return response()->json($user);
+        return $this->apiResponse('Record', [], ($user), [], 200);
+        /* return response()->json($user); */
     }
 
     /**
@@ -170,9 +172,9 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $uuid)
     {
-        $user = $this->getUserById($id);
+        $user = $this->getUserById($uuid);
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -181,7 +183,8 @@ class UserController extends Controller
         $this->updateUser($request, $user);
         Cache::forget('users');
 
-        return response()->json($user);
+        return $this->apiResponse('Record updated', [], ($user), [], 201);
+        /* return response()->json($user); */
     }
 
     /**
@@ -195,7 +198,8 @@ class UserController extends Controller
         $query = $request->input('query');
         $users = $this->searchUsers($query);
 
-        return response()->json($users);
+        return $this->apiResponse('Search by name & email', [], ($users), [], 201);
+        /* return response()->json($users); */
     }
 
     /**
@@ -204,9 +208,9 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($uuid)
     {
-        $user = $this->getUserById($id);
+        $user = $this->getUserById($uuid);
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -215,7 +219,8 @@ class UserController extends Controller
         $user->delete();
         Cache::forget('users');
 
-        return response()->json(['message' => 'User soft deleted successfully']);
+        return $this->apiResponse('Record soft deleted successfully', [], [], 201);
+        /* return response()->json(['message' => 'User soft deleted successfully']); */
     }
 
     /**
@@ -228,7 +233,8 @@ class UserController extends Controller
         $users = User::onlyTrashed()
             ->get(['id', 'name', 'email', 'profile_img', 'is_online', 'created_at', 'deleted_at']);
 
-        return response()->json($users);
+        return $this->apiResponse('Recycle Bin', [], ($users), [], 201);
+        /* return response()->json($users); */
     }
 
     /**
@@ -242,6 +248,7 @@ class UserController extends Controller
         $isActive = $request->input('active', true);
         $users = $this->getUsersByStatus($isActive);
 
-        return response()->json($users);
+        return $this->apiResponse('Active Users', [], ($users), [], 201);
+        /* return response()->json($users); */
     }
 }

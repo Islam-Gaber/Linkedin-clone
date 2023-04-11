@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 
 class ProfileController extends Controller
 {
+    use apiResponseTrait;
     public function index()
     {
         $profiles = Profile::with(['user', 'experiences', 'educations', 'skills'])
@@ -24,25 +25,27 @@ class ProfileController extends Controller
             return response()->json(['error' => 'Profile not found'], 404);
         }
 
-        return response()->json([
+        return $this->apiResponse('profiles', [], ($profiles), [], 201);
+        /* return response()->json([
             'profiles' => $profiles,
-        ]);
+        ]); */
     }
 
     public function show($uuid)
     {
         $profile = Profile::where('uuid', $uuid)
             ->with([
-                'user:id,name,email,profile_img,is_online',
+                'user:id,uuid,name,email,profile_img,is_online',
                 'experiences:id,profile_id,title,company,location,start_date,end_date,description',
                 'educations:id,profile_id,school,degree,field_of_study,start_date,end_date,description',
                 'skills:id,name'
             ])
             ->firstOrFail(['id', 'uuid', 'user_id', 'headline', 'summary', 'country', 'state', 'city', 'address', 'phone_number', 'website_url']);
 
-        return response()->json([
+        return $this->apiResponse('profile', [], ($profile), [], 201);
+        /* return response()->json([
             'profile' => $profile,
-        ]);
+        ]); */
     }
 
     public function store(ProfileRequest $request)
@@ -52,9 +55,10 @@ class ProfileController extends Controller
         $profile->user_id = $user_id;
         $profile->save();
 
-        return response()->json([
+        return $this->apiResponse('profile created', [], ($profile), [], 201);
+        /* return response()->json([
             'profile' => $profile,
-        ], 201);
+        ], 201); */
     }
 
     public function update(ProfileRequest $request, $uuid)
@@ -75,8 +79,9 @@ class ProfileController extends Controller
         // Update profile data
         $profile->update($request->validated());
 
-        return response()->json([
+        return $this->apiResponse('profile updated', [], ($profile), [], 200);
+        /* return response()->json([
             'profile' => $profile,
-        ]);
+        ]); */
     }
 }

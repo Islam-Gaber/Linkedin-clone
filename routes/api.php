@@ -31,44 +31,45 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
+    // Users routes
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users', [UserController::class, 'store']);
     Route::get('/users/search', [UserController::class, 'search']);
     Route::get('/users/trashed', [UserController::class, 'getSoftDeletedUsers']);
     Route::get('users/filter', [UserController::class, 'getUsersByActiveStatus']);
-    Route::get('/users/{user}', [UserController::class, 'show']);
-    Route::put('/users/{user}', [UserController::class, 'update']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::get('/users/{user_uuid}', [UserController::class, 'show']);
+    Route::put('/users/{user_uuid}', [UserController::class, 'update']);
+    Route::delete('/users/{user_uuid}', [UserController::class, 'destroy']);
 
     // Profile routes
     Route::get('/profiles', [ProfileController::class, 'index']);
     Route::post('/profiles', [ProfileController::class, 'store']);
-    Route::get('/profiles/{uuid}', [ProfileController::class, 'show']);
-    Route::put('/profiles/{uuid}', [ProfileController::class, 'update']);
+    Route::get('/profiles/{profile_uuid}', [ProfileController::class, 'show']);
+    Route::put('/profiles/{profile_uuid}', [ProfileController::class, 'update']);
 
     // Experience routes
-    Route::post('/profiles/{uuid}/experiences', [ExperienceController::class, 'store']);
-    Route::put('/profiles/{uuid}/experiences/{id}', [ExperienceController::class, 'update']);
-    Route::delete('/profiles/{uuid}/experiences/{id}', [ExperienceController::class, 'destroy']);
+    Route::post('/profiles/{profile_uuid}/experiences', [ExperienceController::class, 'store']);
+    Route::put('/profiles/{profile_uuid}/experiences/{experience_id}', [ExperienceController::class, 'update']);
+    Route::delete('/profiles/{profile_uuid}/experiences/{experience_id}', [ExperienceController::class, 'destroy']);
 
     // Education routes
-    Route::post('/profiles/{uuid}/educations', [EducationController::class, 'store']);
-    Route::put('/profiles/{uuid}/educations/{id}', [EducationController::class, 'update']);
-    Route::delete('/profiles/{uuid}/educations/{id}', [EducationController::class, 'destroy']);
+    Route::post('/profiles/{profile_uuid}/educations', [EducationController::class, 'store']);
+    Route::put('/profiles/{profile_uuid}/educations/{education_id}', [EducationController::class, 'update']);
+    Route::delete('/profiles/{profile_uuid}/educations/{education_id}', [EducationController::class, 'destroy']);
 
     // Skill routes
-    Route::post('/profiles/{uuid}/skills', [SkillController::class, 'store']);
-    Route::put('/profiles/{uuid}/skills/{id}', [SkillController::class, 'update']);
-    Route::delete('/profiles/{uuid}/skills/{id}', [SkillController::class, 'destroy']);
+    Route::post('/profiles/{profile_uuid}/skills', [SkillController::class, 'store']);
+    Route::put('/profiles/{profile_uuid}/skills/{skill_id}', [SkillController::class, 'update']);
+    Route::delete('/profiles/{profile_uuid}/skills/{skill_id}', [SkillController::class, 'destroy']);
 
     // Connection routes
     Route::get('/connections', [ConnectionController::class, 'index']);
     Route::get('/connections/friends', [ConnectionController::class, 'myFriends']);
-    Route::post('/connections/{id}', [ConnectionController::class, 'sendRequest']);
-    Route::post('/connections/{id}/accept', [ConnectionController::class, 'acceptRequest']);
-    Route::post('/connections/{id}/reject', [ConnectionController::class, 'rejectRequest']);
-    Route::post('/connections/{id}/block', [ConnectionController::class, 'blockConnection']);
-    Route::delete('/connections/{id}', [ConnectionController::class, 'destroy']);
+    Route::post('/connections/{user_uuid}', [ConnectionController::class, 'sendRequest']);
+    Route::post('/connections/{connection_uuid}/accept', [ConnectionController::class, 'acceptRequest']);
+    Route::post('/connections/{connection_uuid}/reject', [ConnectionController::class, 'rejectRequest']);
+    Route::post('/connections/{connection_uuid}/block', [ConnectionController::class, 'blockConnection']);
+    Route::delete('/connections/{connection_uuid}', [ConnectionController::class, 'destroy']);
 
     // Post routes
     Route::get('/posts', [PostController::class, 'index']);
